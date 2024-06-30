@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Checker.Console", "F2Checker.Console\F2Checker.Console.csproj", "{4A490146-7262-4B99-8BBA-AB7A0851A829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Checker.Core", "F2Checker.Core\F2Checker.Core.csproj", "{D99CC701-757E-4167-BED1-756755A339EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F2Checker.Maui", "F2Checker.Maui\F2Checker.Maui.csproj", "{5218C6AF-E94A-43FF-AC00-22E65C2296D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A490146-7262-4B99-8BBA-AB7A0851A829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A490146-7262-4B99-8BBA-AB7A0851A829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A490146-7262-4B99-8BBA-AB7A0851A829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A490146-7262-4B99-8BBA-AB7A0851A829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D99CC701-757E-4167-BED1-756755A339EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99CC701-757E-4167-BED1-756755A339EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99CC701-757E-4167-BED1-756755A339EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99CC701-757E-4167-BED1-756755A339EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5218C6AF-E94A-43FF-AC00-22E65C2296D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5218C6AF-E94A-43FF-AC00-22E65C2296D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5218C6AF-E94A-43FF-AC00-22E65C2296D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5218C6AF-E94A-43FF-AC00-22E65C2296D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
