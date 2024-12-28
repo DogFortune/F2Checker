@@ -1,17 +1,15 @@
-using Prism.Mvvm;
 using Reactive.Bindings;
-using Reactive.Bindings.Disposables;
 using Reactive.Bindings.Extensions;
 using AppContext = F2Checker.Models.AppContext;
 
 namespace F2Checker.ViewModels;
 
-public class MainPageViewModel : BindableBase, IDisposable
+public class MainPageViewModel : ViewModelBase
 {
     public MainPageViewModel(AppContext model)
     {
         Model = model;
-        CancellationToken = new CancellationToken();
+        CancellationToken = CancellationToken.None;
         FirstFilePath = Model.ObserveProperty(m => m.FirstFilePath)
             .ToReadOnlyReactivePropertySlim()
             .AddTo(CompositeDisposable);
@@ -94,11 +92,4 @@ public class MainPageViewModel : BindableBase, IDisposable
     public ReadOnlyReactivePropertySlim<string?> Status { get; }
 
     private CancellationToken CancellationToken { get; }
-
-    private CompositeDisposable CompositeDisposable { get; } = new();
-
-    public void Dispose()
-    {
-        CompositeDisposable.Dispose();
-    }
 }

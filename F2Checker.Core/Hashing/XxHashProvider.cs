@@ -2,37 +2,61 @@
 using System.Buffers;
 using System.IO;
 using System.IO.Hashing;
+using System.Threading;
 using System.Threading.Tasks;
 using ByteSizeLib;
+using ReadFullBufferFileStream;
 
-namespace F2Checker.Core.Hashing
+namespace F2Checker.Core.Hashing;
+
+public class XxHashProvider : IHashProvider
 {
-    public class XxHashProvider
+    public async Task<byte[]> GetHashAsync(string filename, IProgress<string> p, CancellationToken token)
     {
-        private const int BufferSize = 1 << 20;
-
-        public async Task<byte[]> GetHashAsync(string filename, IProgress<string> p)
+        // ディレクトリ構造も含めてコピーする方法
+        // var dir = "/Users/r0052005/Movies/CM_Sozai/";
+        // var files = Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
+        // var dest = new List<string>();
+        // var dest_relative = new List<string>();
+        //
+        // foreach (string file in files)
+        // {
+        //     dest_relative.Add(Path.GetRelativePath(dir, file));
+        // }
+        var buffer = ArrayPool<byte>.Shared.Rent(BufferSize);
+        try
         {
-            var buffer = ArrayPool<byte>.Shared.Rent(BufferSize);
             using (var entryStream = File.OpenRead(filename))
             {
-                var xxhash = new XxHash64();
                 var totalBytesRead = 0L;
-                var bytesRead = await entryStream.ReadAtLeastAsync(buffer, BufferSize).ConfigureAwait(false);
+                var bytesRead = await entryStream.ReadFullBufferAsync(buffer, token).ConfigureAwait(false);
                 var startTime = DateTime.Now;
                 while (bytesRead > 0)
                 {
-                    xxhash.Append(buffer.AsSpan(0, bytesRead));
+                    HashAlgorithm.Append(buffer.AsSpan(0, bytesRead));
                     totalBytesRead += bytesRead;
                     var speed = ByteSize.FromBytes(totalBytesRead / (DateTime.Now - startTime).TotalSeconds);
                     p.Report(
                         $"{speed.LargestWholeNumberBinaryValue:#.##} {speed.LargestWholeNumberBinarySymbol}/s");
-                    bytesRead = await entryStream.ReadAtLeastAsync(buffer, BufferSize, false).ConfigureAwait(false);
+                    bytesRead = await entryStream.ReadFullBufferAsync(buffer, token).ConfigureAwait(false);
                 }
-
-                ArrayPool<byte>.Shared.Return(buffer);
-                return xxhash.GetHashAndReset();
             }
         }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(buffer);
+        }
+
+        return HashAlgorithm.GetHashAndReset();
     }
+
+    /// <summary>
+    ///     ハッシュアルゴリズム
+    /// </summary>
+    private XxHash3 HashAlgorithm { get; } = new();
+
+    /// <summary>
+    ///     バッファサイズ
+    /// </summary>
+    private int BufferSize { get; } = 1 << 20;
 }

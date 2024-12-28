@@ -9,7 +9,7 @@ class Program
         var model = new XxHashProvider();
         var progress = new Progress<string>(System.Console.WriteLine);
         var dir = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-        var hash = await model.GetHashAsync(Path.Combine(dir, "test.mp4"), progress);
+        var hash = await model.GetHashAsync(Path.Combine(dir, "test.mp4"), progress, CancellationToken.None);
         System.Console.WriteLine(Convert.ToHexString(hash).ToLower());
     }
 }

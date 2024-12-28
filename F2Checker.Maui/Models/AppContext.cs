@@ -1,12 +1,15 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using F2Checker.Core.Hashing;
-using Prism.Mvvm;
 
 namespace F2Checker.Models;
 
-public class AppContext : BindableBase
+public class AppContext : ObservableObject
 {
     public AppContext()
     {
+        _firstFilePath = string.Empty;
+        _firstFileHash = string.Empty;
+        _status = string.Empty;
         FirstFilePath = string.Empty;
         Status = string.Empty;
         HashProvider = new XxHashProvider();
@@ -26,14 +29,14 @@ public class AppContext : BindableBase
         if (token.IsCancellationRequested)
             return string.Empty;
         var progress = new Progress<string>(m => Status = m);
-        var hashbyte = await HashProvider.GetHashAsync(filename, progress).ConfigureAwait(false);
-        return Convert.ToHexString(hashbyte).ToLower();
+        var hashValue = await HashProvider.GetHashAsync(filename, progress, token).ConfigureAwait(false);
+        return Convert.ToHexString(hashValue).ToLower();
     }
 
     /// <summary>
     ///     ハッシュプロバイダー
     /// </summary>
-    private XxHashProvider HashProvider { get; }
+    private IHashProvider HashProvider { get; }
 
     private string _firstFilePath;
 
