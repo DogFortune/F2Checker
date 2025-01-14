@@ -3,7 +3,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="F2Checker.Views.AboutPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    <StackLayout>
+        <Label Text="{Binding Version.Value}" />
+        <Label Text="{Binding Copyright.Value}" />
+        <Label Text="{Binding Thanks.Value}" />
+    </StackLayout>
 </ContentPage>

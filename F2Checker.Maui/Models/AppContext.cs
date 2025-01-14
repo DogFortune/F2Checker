@@ -43,7 +43,6 @@ public class AppContext : ObservableObject
             if (loadSetting == null)
                 throw new FileNotFoundException(appSettingsPath);
             AppSetting.Update(loadSetting);
-
         }
     }
 
@@ -76,7 +75,7 @@ public class AppContext : ObservableObject
     /// </summary>
     private IHashProvider HashProvider { get; }
 
-    private AppSettings AppSetting { get; } = new ();
+    private AppSettings AppSetting { get; } = new();
 
     private string _firstFilePath;
 

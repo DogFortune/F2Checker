@@ -1,9 +1,17 @@
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+
 namespace F2Checker.ViewModels;
 
-public class AboutPageViewModel
+public class AboutPageViewModel : ViewModelBase
 {
     public AboutPageViewModel()
     {
+        Version = new ReactivePropertySlim<string>(AppInfo.Current.VersionString).ToReadOnlyReactivePropertySlim()
+            .AddTo(CompositeDisposable);
+        Copyright = new ReactivePropertySlim<string>("Copyright (c) 2024 DogFortune").ToReadOnlyReactivePropertySlim()
+            .AddTo(CompositeDisposable);
+
         Task.Run(LoadAsset);
     }
 
@@ -11,11 +19,12 @@ public class AboutPageViewModel
     {
         await using var stream = await Task.Run(() => FileSystem.OpenAppPackageFileAsync("THANKS.md"));
         using var reader = new StreamReader(stream);
-        Thanks = await reader.ReadToEndAsync();
+        var text = await reader.ReadToEndAsync();
+        if (!string.IsNullOrEmpty(text))
+            Thanks = new ReactivePropertySlim<string>(text).ToReadOnlyReactivePropertySlim().AddTo(CompositeDisposable);
     }
 
-    public string Version { get; set; } = AppInfo.Current.VersionString;
-
-    public string Copyright { get; set; } = "Copyright (c) 2024 DogFortune";
-    public string Thanks { get; set; } = string.Empty;
+    public ReadOnlyReactivePropertySlim<string> Version { get; }
+    public ReadOnlyReactivePropertySlim<string> Copyright { get; }
+    public ReadOnlyReactivePropertySlim<string> Thanks { get; set; }
 }
