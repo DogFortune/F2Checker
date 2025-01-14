@@ -36,6 +36,13 @@
                 Command="{Binding CheckSum}"
                 HorizontalOptions="Fill" />
             <Label Text="{Binding Status.Value, Mode=OneWay}" />
+            
+            <Button
+                x:Name="About"
+                Text="About"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding OpenAboutPageCommand}"
+                HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
 

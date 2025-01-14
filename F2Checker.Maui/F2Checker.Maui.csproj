@@ -33,6 +33,11 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <RootNamespace>F2Checker</RootNamespace>
+        <PackageId>F2Checker</PackageId>
+        <Authors>DogFortune</Authors>
+        <Copyright>Copyright (c) 2024 DogFortune</Copyright>
+        <PackageLicenseUrl>https://github.com/DogFortune/F2Checker/blob/8fc42ddb093fb41da5c187f12b25e024f2be4771/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/DogFortune/F2Checker</RepositoryUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

@@ -1,5 +1,10 @@
 # Copyright notice
 
+## MemoryPack
+MIT License (MIT)  
+Copyright (c) 2022 Cysharp, Inc.  
+https://github.com/Cysharp/MemoryPack/blob/1e4bf883b3e4963e565774656f7de938f252c9c4/LICENSE.md
+
 ## ReactiveProperty
 MIT License (MIT)  
 Copyright (c) 2018 neuecc, xin9le, okazuki  

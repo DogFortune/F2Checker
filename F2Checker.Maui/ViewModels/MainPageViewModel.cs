@@ -1,3 +1,5 @@
+using F2Checker.Services;
+using F2Checker.Views;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using AppContext = F2Checker.Models.AppContext;
@@ -6,7 +8,7 @@ namespace F2Checker.ViewModels;
 
 public class MainPageViewModel : ViewModelBase
 {
-    public MainPageViewModel(AppContext model)
+    public MainPageViewModel(AppContext model, INavigationService navigation)
     {
         Model = model;
         CancellationToken = CancellationToken.None;
@@ -29,6 +31,9 @@ public class MainPageViewModel : ViewModelBase
 
         Status = Model.ObserveProperty(m => m.Status)
             .ToReadOnlyReactivePropertySlim()
+            .AddTo(CompositeDisposable);
+
+        OpenAboutPageCommand = new AsyncReactiveCommand().WithSubscribe(navigation.NavigateToAboutPage)
             .AddTo(CompositeDisposable);
     }
 
@@ -92,4 +97,8 @@ public class MainPageViewModel : ViewModelBase
     public ReadOnlyReactivePropertySlim<string?> Status { get; }
 
     private CancellationToken CancellationToken { get; }
+
+    public AsyncReactiveCommand OpenAboutPageCommand { get; }
+
+    private AboutPage AboutPage { get; }
 }
